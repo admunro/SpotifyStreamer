@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
 
 
 /**
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
  */
 public class ArtistSearchFragment extends Fragment
 {
+    private ArrayAdapter artistSearchResultsAdapter;
 
     public ArtistSearchFragment()
     {
@@ -21,6 +25,13 @@ public class ArtistSearchFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        View rootView = inflater.inflate(R.layout.fragment_artist_search, container, false);
+
+        artistSearchResultsAdapter = new ArrayAdapter<> (getActivity(),
+                                                         R.layout.fragment_artist_result,
+                                                         R.id.fragment_artist_result_name,
+                                                         new ArrayList<String>());
+
         return inflater.inflate(R.layout.fragment_artist_search, container, false);
     }
 }
