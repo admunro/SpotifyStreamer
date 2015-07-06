@@ -18,10 +18,12 @@
         android:layout_height="match_parent"
         android:layout_below="@id/artist_search_text_input">
 
-        <ListView
-            android:id="@+id/artist_search_results"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <ListView
+                android:id="@+id/artist_search_results"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
     </FrameLayout>
 
 

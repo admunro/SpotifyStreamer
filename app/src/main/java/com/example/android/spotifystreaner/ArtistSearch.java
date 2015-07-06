@@ -14,6 +14,11 @@ public class ArtistSearch extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_search);
+
+        if (savedInstanceState == null)
+        {
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new ArtistSearchFragment()).commit();
+        }
     }
 
 
