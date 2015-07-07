@@ -1,8 +1,8 @@
 <FrameLayout android:id="@+id/container"
-             android:name="com.example.android.spotifystreamer.ArtistSearch"
+             android:name="com.example.android.spotifystreamer.TopTenTracks"
              xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".ArtistSearch"
-             tools:layout="@layout/fragment_artist_search"/>
+             tools:context=".TopTenTracks"
+             tools:layout="@layout/fragment_top_ten_tracks"/>

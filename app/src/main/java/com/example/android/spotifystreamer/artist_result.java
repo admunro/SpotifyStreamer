@@ -1,4 +1,4 @@
-package com.example.android.spotifystreaner;
+package com.example.android.spotifystreamer;
 
 import android.app.Activity;
 import android.net.Uri;
