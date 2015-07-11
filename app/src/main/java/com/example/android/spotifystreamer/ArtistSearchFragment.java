@@ -35,8 +35,7 @@ public class ArtistSearchFragment extends Fragment
 
     private ArrayAdapter artistSearchResultsAdapter;
 
-    public ArtistSearchFragment()
-    {
+    public ArtistSearchFragment() {
     }
 
     @Override
@@ -46,12 +45,6 @@ public class ArtistSearchFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_artist_search, container, false);
 
         ArrayList<String> dummyData = new ArrayList<>();
-
-//        // A nice old-fashioned loop to ensure that this Fragment automatically scrolls.
-//        for (int i = 1; i <= 20; i++)
-//        {
-//            dummyData.add("Artist " + Integer.toString(i));
-//        }
 
         artistSearchResultsAdapter = new ArrayAdapter<> (getActivity(),
                                                          R.layout.fragment_artist_result,
