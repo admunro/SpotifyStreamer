@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ public class ArtistSearchFragment extends Fragment
 
     static SpotifyService spotifyService;
 
-    private ArrayAdapter artistSearchResultsAdapter;
+    private ArtistSearchAdapter artistSearchResultsAdapter;
 
     public ArtistSearchFragment() {
     }
@@ -44,12 +43,9 @@ public class ArtistSearchFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_artist_search, container, false);
 
-        ArrayList<String> dummyData = new ArrayList<>();
+        ArrayList<Artist> dummyData = new ArrayList<>();
 
-        artistSearchResultsAdapter = new ArrayAdapter<> (getActivity(),
-                                                         R.layout.fragment_artist_result,
-                                                         R.id.fragment_artist_result_name,
-                                                         dummyData);
+        artistSearchResultsAdapter = new ArtistSearchAdapter (getActivity(), dummyData);
 
         ListView listView = (ListView) rootView.findViewById(R.id.artist_search_results);
 
@@ -125,8 +121,12 @@ public class ArtistSearchFragment extends Fragment
 
             for (Artist artist : artists.artists.items)
             {
-                artistSearchResultsAdapter.add(artist.name);
-                Log.i(LOG_TAG, "Log image: " + artist.images.get(0).url.toString());
+                artistSearchResultsAdapter.add(artist);
+
+                if (artist.images.size() != 0)
+                {
+                    Log.i(LOG_TAG, "Log image: " + artist.images.get(0).url);
+                }
             }
         }
     }
