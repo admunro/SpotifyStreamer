@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/artist_search_vertical_margin"
+    android:paddingBottom="@dimen/artist_search_vertical_margin"
     tools:context="com.example.android.spotifystreamer.ArtistSearchFragment">
 
 
     <ImageView
         android:id="@+id/fragment_artist_result_image"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:background="@color/primary_dark_material_dark"
         />
 
@@ -23,6 +25,5 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:text="@string/album_name"/>
-
 
 </RelativeLayout>
