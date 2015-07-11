@@ -6,26 +6,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class TopTenTracks extends ActionBarActivity
+public class ArtistSearchActivity extends ActionBarActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_ten_tracks);
+        setContentView(R.layout.activity_artist_search);
 
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, new TopTenTracksFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new ArtistSearchFragment()).commit();
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_top_ten_tracks, menu);
+        getMenuInflater().inflate(R.menu.menu_artist_search, menu);
         return true;
     }
 

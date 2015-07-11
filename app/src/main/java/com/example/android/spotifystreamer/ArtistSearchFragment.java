@@ -29,7 +29,7 @@ import kaaes.spotify.webapi.android.models.ArtistsPager;
  */
 public class ArtistSearchFragment extends Fragment
 {
-    final static String LOG_TAG = ArtistSearch.class.getSimpleName();
+    final static String LOG_TAG = ArtistSearchActivity.class.getSimpleName();
 
     static SpotifyService spotifyService;
 
@@ -62,7 +62,7 @@ public class ArtistSearchFragment extends Fragment
             {
                 String artist = artistSearchResultsAdapter.getItem(position).toString();
 
-                Intent topTenTracks = new Intent(getActivity(), TopTenTracks.class);
+                Intent topTenTracks = new Intent(getActivity(), TopTenTracksActivity.class);
                 topTenTracks.putExtra(Intent.EXTRA_TEXT, artist);
                 startActivity(topTenTracks);
             }
