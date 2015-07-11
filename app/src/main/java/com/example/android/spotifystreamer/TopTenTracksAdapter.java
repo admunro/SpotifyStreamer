@@ -21,6 +21,11 @@ public class TopTenTracksAdapter extends ArrayAdapter<Track>
 {
     private static final String LOG_TAG = TopTenTracksAdapter.class.getSimpleName();
 
+    // For some reason, encoding these values in the dimens.xml file results in blank images, so
+    // I've used consts instead.
+    private static final int IMAGE_WIDTH  = 64;
+    private static final int IMAGE_HEIGHT = 64;
+
     public TopTenTracksAdapter(Activity context, List<Track> results)
     {
         super(context, 0, results);
@@ -29,7 +34,9 @@ public class TopTenTracksAdapter extends ArrayAdapter<Track>
     public View getView(int position, View convertView, ViewGroup parent)
     {
         Track track = getItem(position);
-        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_top_ten_tracks_result, parent, false);
+
+        View rootView = LayoutInflater.from(getContext())
+                                      .inflate(R.layout.fragment_top_ten_tracks_result, parent, false);
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.fragment_top_ten_tracks_image);
         TextView  song      = (TextView)  rootView.findViewById(R.id.fragment_top_ten_tracks_song);
@@ -40,7 +47,10 @@ public class TopTenTracksAdapter extends ArrayAdapter<Track>
 
         if (track.album.images.size() != 0)
         {
-            Picasso.with(getContext()).load(track.album.images.get(0).url).resize(50, 50).centerCrop().into(imageView);
+            Picasso.with(getContext()).load(track.album.images.get(0).url)
+                                      .resize(IMAGE_WIDTH, IMAGE_HEIGHT)
+                                      .centerCrop()
+                                      .into(imageView);
         }
 
         return rootView;

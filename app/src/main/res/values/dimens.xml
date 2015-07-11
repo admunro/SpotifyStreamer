@@ -5,4 +5,10 @@
 
     <dimen name="artist_search_horizontal_margin">8dp</dimen>
     <dimen name="artist_search_vertical_margin">16dp</dimen>
+
+    <dimen name="top_ten_tracks_horizontal_margin">8dp</dimen>
+    <dimen name="top_ten_tracks_vertical_margin">16dp</dimen>
+
+    <dimen name="image_width">64dp</dimen>
+    <dimen name="image_height">64dp</dimen>
 </resources>

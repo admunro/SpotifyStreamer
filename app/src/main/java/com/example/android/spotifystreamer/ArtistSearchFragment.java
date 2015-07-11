@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +12,18 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyError;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Artist;
-import kaaes.spotify.webapi.android.models.ArtistsPager;
+import retrofit.RetrofitError;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ArtistSearchFragment extends Fragment
 {
     final static String LOG_TAG = ArtistSearchActivity.class.getSimpleName();
@@ -43,9 +41,7 @@ public class ArtistSearchFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_artist_search, container, false);
 
-        ArrayList<Artist> dummyData = new ArrayList<>();
-
-        artistSearchResultsAdapter = new ArtistSearchAdapter (getActivity(), dummyData);
+        artistSearchResultsAdapter = new ArtistSearchAdapter (getActivity(), new ArrayList<Artist>());
 
         ListView listView = (ListView) rootView.findViewById(R.id.artist_search_results);
 
@@ -84,48 +80,36 @@ public class ArtistSearchFragment extends Fragment
         return rootView;
     }
 
-    public class SearchSpotifyTask extends AsyncTask<String, Void, ArtistsPager>
+    public class SearchSpotifyTask extends AsyncTask<String, Void, List<Artist>>
     {
-        protected ArtistsPager doInBackground(String... strings)
+        protected List<Artist> doInBackground(String... strings)
         {
-            spotifyService = new SpotifyApi().getService();
-
-            ArtistsPager results = spotifyService.searchArtists(strings[0]);
-
-            List<Artist> artists = results.artists.items;
-
-            // Check for a zero-length list - this means no artists were found
-            if (artists.size() == 0)
+            try
             {
+                spotifyService = new SpotifyApi().getService();
+                return spotifyService.searchArtists(strings[0]).artists.items;
+            }
+            catch (RetrofitError error)
+            {
+                SpotifyError spotifyError = SpotifyError.fromRetrofitError(error);
+                Toast.makeText(getActivity(), spotifyError.toString(), Toast.LENGTH_LONG);
                 return null;
             }
-
-            for (Artist artist : artists)
-            {
-                Log.i(LOG_TAG, artist.name);
-            }
-
-            return results;
-
         }
 
-        protected void onPostExecute(ArtistsPager artists)
+        protected void onPostExecute(List<Artist> artists)
         {
-            if (artists == null)
+            if (artists == null || artists.size() == 0)
             {
+                Toast.makeText(getActivity(), R.string.no_artists_found, Toast.LENGTH_LONG).show();
                 return;
             }
 
             artistSearchResultsAdapter.clear();
 
-            for (Artist artist : artists.artists.items)
+            for (Artist artist : artists)
             {
                 artistSearchResultsAdapter.add(artist);
-
-                if (artist.images.size() != 0)
-                {
-                    Log.i(LOG_TAG, "Log image: " + artist.images.get(0).url);
-                }
             }
         }
     }

@@ -5,12 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +18,10 @@ import java.util.List;
 import java.util.Locale;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyError;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Track;
-import kaaes.spotify.webapi.android.models.Tracks;
+import retrofit.RetrofitError;
 
 
 public class TopTenTracksFragment extends Fragment
@@ -33,6 +34,7 @@ public class TopTenTracksFragment extends Fragment
     static SpotifyService spotifyService;
     private TopTenTracksAdapter topTenTracksAdapter;
 
+
     public TopTenTracksFragment()
     {
     }
@@ -43,9 +45,7 @@ public class TopTenTracksFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_top_ten_tracks, container, false);
 
-        ArrayList<Track> dummyData = new ArrayList<>();
-
-        topTenTracksAdapter = new TopTenTracksAdapter(getActivity(), dummyData);
+        topTenTracksAdapter = new TopTenTracksAdapter(getActivity(), new ArrayList<Track>());
 
         ListView listView = (ListView) rootView.findViewById(R.id.top_ten_tracks_results);
 
@@ -75,31 +75,27 @@ public class TopTenTracksFragment extends Fragment
     {
         protected List<Track> doInBackground(String... strings)
         {
-            spotifyService = new SpotifyApi().getService();
-
             HashMap<String, Object> options = new HashMap<>();
             options.put("country", Locale.getDefault().getCountry());
 
-
-            Tracks results = spotifyService.getArtistTopTrack(strings[0], options);
-
-            if (results.tracks.size() == 0)
+            try
             {
+                spotifyService = new SpotifyApi().getService();
+                return spotifyService.getArtistTopTrack(strings[0], options).tracks;
+            }
+            catch (RetrofitError error)
+            {
+                SpotifyError spotifyError = SpotifyError.fromRetrofitError(error);
+                Toast.makeText(getActivity(), spotifyError.toString(), Toast.LENGTH_LONG);
                 return null;
             }
-
-            for (Track track : results.tracks)
-            {
-                Log.i(LOG_TAG, track.name);
-            }
-
-            return results.tracks;
         }
 
         protected void onPostExecute(List<Track> tracks)
         {
-            if (tracks == null)
+            if (tracks == null || tracks.size() == 0)
             {
+                Toast.makeText(getActivity(), R.string.no_tracks_found, Toast.LENGTH_LONG).show();
                 return;
             }
 

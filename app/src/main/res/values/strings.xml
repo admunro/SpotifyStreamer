@@ -7,4 +7,8 @@
     <string name="album_name">Album Name</string>
     <string name="song_name">Song Name</string>
 
+    <string name="no_artists_found">No artists found!</string>
+    <string name="no_tracks_found">No tracks found!</string>
+
+
 </resources>
