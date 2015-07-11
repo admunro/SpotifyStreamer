@@ -60,13 +60,12 @@ public class ArtistSearchFragment extends Fragment
 
                 Intent topTenTracks = new Intent(getActivity(), TopTenTracksActivity.class);
                 topTenTracks.putExtra(Intent.EXTRA_TEXT, artist.name);
+                topTenTracks.putExtra(Intent.EXTRA_UID, artist.id);
                 startActivity(topTenTracks);
             }
         });
 
         final EditText textView = (EditText) rootView.findViewById(R.id.artist_search_text_input);
-
-        textView.setText("Type an artist to search for...");
 
         // This listener will only be triggered when the Enter key is pressed
         textView.setOnEditorActionListener(new TextView.OnEditorActionListener()
