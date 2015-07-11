@@ -56,10 +56,10 @@ public class ArtistSearchFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                String artist = artistSearchResultsAdapter.getItem(position).toString();
+                Artist artist = artistSearchResultsAdapter.getItem(position);
 
                 Intent topTenTracks = new Intent(getActivity(), TopTenTracksActivity.class);
-                topTenTracks.putExtra(Intent.EXTRA_TEXT, artist);
+                topTenTracks.putExtra(Intent.EXTRA_TEXT, artist.name);
                 startActivity(topTenTracks);
             }
         });
