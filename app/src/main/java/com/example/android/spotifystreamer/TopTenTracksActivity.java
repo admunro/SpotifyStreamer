@@ -17,7 +17,9 @@ public class TopTenTracksActivity extends ActionBarActivity
 
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, new TopTenTracksFragment()).commit();
+            getSupportFragmentManager().beginTransaction()
+                                       .add(R.id.container, new TopTenTracksFragment())
+                                       .commit();
         }
     }
 

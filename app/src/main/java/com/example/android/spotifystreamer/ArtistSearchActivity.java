@@ -17,7 +17,9 @@ public class ArtistSearchActivity extends ActionBarActivity
 
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, new ArtistSearchFragment()).commit();
+            getSupportFragmentManager().beginTransaction()
+                                       .add(R.id.container, new ArtistSearchFragment())
+                                       .commit();
         }
     }
 
