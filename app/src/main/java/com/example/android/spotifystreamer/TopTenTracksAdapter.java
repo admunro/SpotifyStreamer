@@ -27,6 +27,8 @@ public class TopTenTracksAdapter extends ArrayAdapter<Track>
     private static final int IMAGE_WIDTH  = 64;
     private static final int IMAGE_HEIGHT = 64;
 
+    private ViewHolder viewHolder;
+
     public TopTenTracksAdapter(Activity context, List<Track> results)
     {
         super(context, 0, results);
@@ -34,27 +36,47 @@ public class TopTenTracksAdapter extends ArrayAdapter<Track>
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        View rootView = convertView;
+
         Track track = getItem(position);
 
-        View rootView = LayoutInflater.from(getContext())
-                                      .inflate(R.layout.fragment_top_ten_tracks_result, parent, false);
+        if (rootView == null)
+        {
+            rootView = LayoutInflater.from(getContext())
+                                     .inflate(R.layout.fragment_top_ten_tracks_result, parent, false);
 
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.fragment_top_ten_tracks_image);
-        TextView  song      = (TextView)  rootView.findViewById(R.id.fragment_top_ten_tracks_song);
-        TextView  album     = (TextView)  rootView.findViewById(R.id.fragment_top_ten_tracks_album);
+            viewHolder = new ViewHolder();
 
-        song.setText(track.name);
-        album.setText(track.album.name);
-        album.setTypeface(null, Typeface.ITALIC);
+            viewHolder.imageView = (ImageView) rootView.findViewById(R.id.fragment_top_ten_tracks_image);
+            viewHolder.song      = (TextView)  rootView.findViewById(R.id.fragment_top_ten_tracks_song);
+            viewHolder.album     = (TextView)  rootView.findViewById(R.id.fragment_top_ten_tracks_album);
+
+            rootView.setTag(viewHolder);
+        }
+        else
+        {
+            viewHolder = (ViewHolder) rootView.getTag();
+        }
+
+        viewHolder.song.setText(track.name);
+        viewHolder.album.setText(track.album.name);
+        viewHolder.album.setTypeface(null, Typeface.ITALIC);
 
         if (track.album.images.size() != 0)
         {
             Picasso.with(getContext()).load(track.album.images.get(0).url)
                                       .resize(IMAGE_WIDTH, IMAGE_HEIGHT)
                                       .centerCrop()
-                                      .into(imageView);
+                                      .into(viewHolder.imageView);
         }
 
         return rootView;
+    }
+
+    private class ViewHolder
+    {
+        ImageView imageView;
+        TextView  song;
+        TextView  album;
     }
 }
