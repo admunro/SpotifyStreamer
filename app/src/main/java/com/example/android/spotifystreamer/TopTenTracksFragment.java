@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,10 +27,8 @@ public class TopTenTracksFragment extends Fragment
 {
     private static final String LOG_TAG = TopTenTracksTask.class.getSimpleName();
 
-    private ArrayAdapter albumsAdapter;
-    private ArrayAdapter songsAdapter;
-
     static SpotifyService spotifyService;
+
     private TopTenTracksAdapter topTenTracksAdapter;
 
 
