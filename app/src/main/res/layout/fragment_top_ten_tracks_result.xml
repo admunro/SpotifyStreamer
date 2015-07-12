@@ -33,6 +33,4 @@
         android:paddingRight="@dimen/top_ten_tracks_horizontal_margin"
         android:text="@string/song_name"/>
 
-
-
 </RelativeLayout>

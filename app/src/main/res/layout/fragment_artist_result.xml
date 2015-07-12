@@ -1,5 +1,4 @@
 <RelativeLayout
-    android:id="@+id/artist_result_relative_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

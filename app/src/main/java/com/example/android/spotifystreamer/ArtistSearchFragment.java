@@ -71,7 +71,14 @@ public class ArtistSearchFragment extends Fragment
             {
                 String input = textView.getText().toString();
 
-                new SearchSpotifyTask().execute(input);
+                if (input.isEmpty())
+                {
+                   Toast.makeText(getActivity(), R.string.nothing_to_search, Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    new SearchSpotifyTask().execute(input);
+                }
 
                 return false;
             }

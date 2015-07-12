@@ -14,18 +14,10 @@
         android:layout_height="wrap_content"
         android:singleLine="true"/>
 
-    <FrameLayout
-        android:id="@+id/artist_search_frame_layout"
+    <ListView
+        android:id="@+id/artist_search_results"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/artist_search_text_input">
-
-        <ListView
-            android:id="@+id/artist_search_results"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </FrameLayout>
-
+        android:layout_below="@id/artist_search_text_input"/>
 
 </RelativeLayout>
