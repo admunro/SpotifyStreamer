@@ -1,6 +1,7 @@
 package com.example.android.spotifystreamer;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class TopTenTracksAdapter extends ArrayAdapter<Track>
 
         song.setText(track.name);
         album.setText(track.album.name);
+        album.setTypeface(null, Typeface.ITALIC);
 
         if (track.album.images.size() != 0)
         {
