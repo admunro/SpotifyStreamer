@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.spotifystreamer" >
+<manifest package="com.example.android.spotifystreamer"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ArtistSearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +21,7 @@
         </activity>
         <activity
             android:name=".TopTenTracksActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_top_ten_tracks"
             android:parentActivityName=".ArtistSearchActivity" >
             <meta-data

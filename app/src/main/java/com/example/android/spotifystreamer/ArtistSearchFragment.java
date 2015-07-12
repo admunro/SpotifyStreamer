@@ -32,7 +32,8 @@ public class ArtistSearchFragment extends Fragment
 
     private ArtistSearchAdapter artistSearchResultsAdapter;
 
-    public ArtistSearchFragment() {
+    public ArtistSearchFragment()
+    {
     }
 
     @Override
@@ -41,7 +42,8 @@ public class ArtistSearchFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_artist_search, container, false);
 
-        artistSearchResultsAdapter = new ArtistSearchAdapter (getActivity(), new ArrayList<Artist>());
+        artistSearchResultsAdapter = new ArtistSearchAdapter(getActivity(),
+                                                             new ArrayList<Artist>());
 
         ListView listView = (ListView) rootView.findViewById(R.id.artist_search_results);
 
