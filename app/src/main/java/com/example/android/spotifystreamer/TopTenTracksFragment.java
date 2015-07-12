@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,12 @@ public class TopTenTracksFragment extends Fragment
             // access the action bar's subtitle.
             AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-            activity.getSupportActionBar().setSubtitle(intent.getStringExtra(Intent.EXTRA_TEXT));
+            ActionBar actionBar = activity.getSupportActionBar();
+
+            if (actionBar != null)
+            {
+                actionBar.setSubtitle(intent.getStringExtra(Intent.EXTRA_TEXT));
+            }
         }
 
         if (intent != null && intent.hasExtra(Intent.EXTRA_UID))
@@ -70,26 +76,41 @@ public class TopTenTracksFragment extends Fragment
 
     public class TopTenTracksTask extends AsyncTask<String, Void, List<Track>>
     {
+        private SpotifyError spotifyError;
+
         protected List<Track> doInBackground(String... strings)
         {
             HashMap<String, Object> options = new HashMap<>();
+
+            List<Track> results;
+
+            // Using this method under the assumption that the reviewer's device will have a locale
+            // which is allowed by Spotify. An error will be shown in the UI thread if this goes
+            // wrong.
             options.put("country", Locale.getDefault().getCountry());
 
             try
             {
                 spotifyService = new SpotifyApi().getService();
-                return spotifyService.getArtistTopTrack(strings[0], options).tracks;
+                results = spotifyService.getArtistTopTrack(strings[0], options).tracks;
             }
             catch (RetrofitError error)
             {
-                SpotifyError spotifyError = SpotifyError.fromRetrofitError(error);
-                Toast.makeText(getActivity(), spotifyError.toString(), Toast.LENGTH_LONG);
+                spotifyError = SpotifyError.fromRetrofitError(error);
                 return null;
             }
+
+            return results;
         }
 
         protected void onPostExecute(List<Track> tracks)
         {
+            if (spotifyError != null)
+            {
+                Toast.makeText(getActivity(), spotifyError.toString(), Toast.LENGTH_LONG).show();
+                return;
+            }
+
             if (tracks == null || tracks.size() == 0)
             {
                 Toast.makeText(getActivity(), R.string.no_tracks_found, Toast.LENGTH_LONG).show();

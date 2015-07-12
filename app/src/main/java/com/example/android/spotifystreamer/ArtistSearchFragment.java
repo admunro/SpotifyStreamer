@@ -89,6 +89,8 @@ public class ArtistSearchFragment extends Fragment
 
     public class SearchSpotifyTask extends AsyncTask<String, Void, List<Artist>>
     {
+        private SpotifyError spotifyError;
+
         protected List<Artist> doInBackground(String... strings)
         {
             try
@@ -98,14 +100,19 @@ public class ArtistSearchFragment extends Fragment
             }
             catch (RetrofitError error)
             {
-                SpotifyError spotifyError = SpotifyError.fromRetrofitError(error);
-                Toast.makeText(getActivity(), spotifyError.toString(), Toast.LENGTH_LONG);
+                spotifyError = SpotifyError.fromRetrofitError(error);
                 return null;
             }
         }
 
         protected void onPostExecute(List<Artist> artists)
         {
+            if (spotifyError != null)
+            {
+                Toast.makeText(getActivity(), spotifyError.toString(), Toast.LENGTH_LONG);
+                return;
+            }
+
             if (artists == null || artists.size() == 0)
             {
                 Toast.makeText(getActivity(), R.string.no_artists_found, Toast.LENGTH_LONG).show();
